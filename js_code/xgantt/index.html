@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Xgantt</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link href="scripts/core.css" rel="stylesheet" type="text/css">
+	<script src="scripts/core.js" type="text/javascript"></script>
+		<style type="text/css">
+html{ 
+	height:100%;
+	margin:0px;
+	padding:0px;
+	}
+body { 
+	height:100%;
+	margin:0px;
+	top:0px;
+	padding:0px;
+	overflow-x: auto;
+	overflow-y: auto;
+	}
+	</style>
+</head>
+<body style="" class="">
+	<table cellpadding="0" cellspacing="0" height="100%" width="100%">
+		<tr><td height="70px">
+        <div class="topnav">    当前位置：        </div>
+        </td></tr>
+        <tr><td height="100%" style="vertical-align:top;">
+        <div class="body">
+			<div class="lwindow"><input style="width: 80px;" value="新建项目" onclick="createproject()" type="button"> </div>
+			
+            <div class="rwindow">
+                <div class="main-top"></div>
+                <div class="main-inner">
+						
+					<div class="demo-title">
+						<div style="padding-bottom:5px;">
+						顶层时间刻度：
+							<select style="margin-right:20px;" onchange="changeTopTimeScale(this.value)">
+								<option value="year">年</option>
+								<option value="halfyear">半年</option>
+								<option value="quarter">季度</option>
+								<option value="month">月</option>
+								<option value="week" selected="selected">周</option>
+								<option value="day">日</option>
+								<option value="hour">时</option>
+							</select>
+							底层时间刻度：
+							<select onchange="changeBottomTimeScale(this.value)" style="margin-right:20px;">
+								<option value="year">年</option>
+								<option value="halfyear">半年</option>
+								<option value="quarter">季度</option>
+								<option value="month">月</option>
+								<option value="week">周</option>
+								<option value="day" selected="selected">日</option>
+								<option value="hour">时</option>
+							</select>
+							<input value="放大" onclick="zoomIn()" type="button"> 
+							<input value="缩小" onclick="zoomOut()" type="button">    
+						</div>                            
+						
+						<input style="width: 80px;" value="加载" onclick="load()" type="button">
+						<input style="width: 80px;" value="保存" onclick="save()" type="button">
+						&nbsp;&nbsp;&nbsp;  &nbsp;  
+						 <input value="项目日历" onclick="showCalendars()" type="button"> 
+						 <input value="任务面板" onclick="editTaskByTaskWindow()" type="button">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input value="增加任务" onclick="addTask()" type="button">
+						<input value="删除任务" onclick="removeTask()" type="button">
+						<input value="修改任务" onclick="updateTask()" type="button">    
+						<input value="升级任务" onclick="upgradeTask()" type="button">
+						<input value="降级任务" onclick="downgradeTask()" type="button">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input value="锁定列" onclick="frozenColumn()" type="button">
+						<input value="取消锁定" onclick="unfrozenColumn()" type="button">
+					</div>
+
+					<div id="viewCt"> </div>
+					<div class="demo-desction">
+						<h3 id="ophelp">操作指南：<span id="helptips">显示</span></h3>
+						<div id="helpwd"  style="display:none;">
+						<p>1）单元格编辑：如编辑“完成日期”单元格，其后置任务联动调整。</p>
+						<p>2）横道图拖拽：拖拽调整后，其后置任务联动调整。</p>
+						<p>3）移动任务：按住第一列单元格，上下移动任务，进行投放。</p>
+						<p>4）右键菜单：选中任务，弹出右键菜单，进行增加、删除、修改、升级、降级等操作。</p>
+						<p>5）按钮工作栏：选中任务，点击增加、删除、修改等按钮。</p>
+						<p>6）任务面板：通过右键菜单的“编辑”项，或“修改任务”按钮，弹出任务面板，修改任务更多丰富属性。</p>
+						<p>7）日历面板：点击“修改任务”按钮，弹出项目日历面板，修改项目日历的工作日和非工作日。</p>
+						<p>8）切换时间刻度：选择“时间刻度”多选下拉框，或点击“放大”、“缩小”按钮。</p>
+						</div>
+					</div>
+					<div class="main-bottom"></div>
+				</div>
+			</div>
+		</div>
+		</td></tr>
+		<tr><td height="20px">
+			<div class="bottom"> helight & lenzhang </div>
+		</td></tr>
+	</table>	
+
+<script src="scripts/boot.js" type="text/javascript"></script>
+<script src="scripts/jquery.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    /* 创建项目甘特图对象，设置列配置，创建右键菜单和任务面板
+    -----------------------------------------------------------------------------*/
+
+    var project = new PlusProject();
+    project.setStyle("width:100%;height:550px;");
+    project.setColumns([
+        new PlusProject.IDColumn(),
+        new PlusProject.StatusColumn(),
+        new PlusProject.NameColumn(),
+        new PlusProject.PredecessorLinkColumn(),
+        new PlusProject.PercentCompleteColumn(),
+        new PlusProject.DurationColumn(),
+        new PlusProject.StartColumn(),
+        new PlusProject.FinishColumn(),
+        new PlusProject.WorkColumn(),
+        new PlusProject.DepartmentColumn(),
+        new PlusProject.PrincipalColumn(),
+        new PlusProject.AssignmentsColumn()
+    ]);
+    project.render(document.getElementById("viewCt"));
+
+
+    //创建右键菜单
+    var menu = new ProjectMenu();
+    project.setContextMenu(menu);
+    menu.edit.on("click", function (e) {
+        ShowTaskWindow(project);
+    });
+
+    function load() {
+        //LoadJSONProject("Data/project.txt", project);
+        LoadProject("100", project);
+    }
+    //load();
+
+
+    /* 业务代码：加载、保存、调试项目，增、删、改、升级、降级任务
+    -----------------------------------------------------------------------------*/
+
+    function track() {
+        TrackProject(project);
+    }
+    function save() {
+        SaveProject(project);
+    }
+
+    function addTask() {
+        var newTask = project.newTask();
+        newTask.Name = '<新增任务>';    //初始化任务属性
+
+        var selectedTask = project.getSelected();
+        if (selectedTask) {
+            project.addTask(newTask, "before", selectedTask);   //插入到到选中任务之前
+            //project.addTask(newTask, "add", selectedTask);       //加入到选中任务之内            
+        } else {
+            project.addTask(newTask);
+        }
+    }
+    function removeTask() {
+        var task = project.getSelected();
+        if (task) {
+            if (confirm("确定删除任务 \"" + task.Name + "\" ？")) {
+                project.removeTask(task);
+            }
+        } else {
+            alert("请选中任务");
+        }
+    }
+    function updateTask() {
+        ShowTaskWindow(project);
+    }
+    function upgradeTask() {
+        var task = project.getSelected();
+        if (task) {
+            project.upgradeTask(task);
+        } else {
+            alert("请选选中任务");
+        }
+    }
+    function downgradeTask() {
+        var task = project.getSelected();
+        if (task) {
+            project.downgradeTask(task);
+        } else {
+            alert("请选选中任务");
+        }
+    }
+
+
+    function changeTopTimeScale(value) {
+        project.setTopTimeScale(value)
+    }
+    function changeBottomTimeScale(value) {
+        project.setBottomTimeScale(value)
+    }
+    function zoomIn() {
+        project.zoomIn();
+    }
+    function zoomOut() {
+        project.zoomOut();
+    }
+    function showCalendars() {
+        ShowCalendarWindow(project);
+    }
+    function editTaskByTaskWindow() {
+        ShowTaskWindow(project);
+    }
+    function createproject() {
+        ShowCreateProjectWindow(project);
+    }
+    function frozenColumn() {
+        project.frozenColumn(0, 2);
+    }
+    function unfrozenColumn() {
+        project.unfrozenColumn();
+    }
+	var tt = 0;
+	$("#ophelp").click(function(){		
+		$("#helpwd").slideToggle(600,function(){
+			if(tt == 1) {
+				$("#helptips").html("   显示");
+				tt = 0;
+			} else {
+				$("#helptips").html("   隐藏");
+				tt = 1;
+			}
+			});  
+	});  
+ 
+</script>
+<div class="mini-supergrid-editwrap" style="position: absolute; z-index: 1000000000; display: none; top: 243px; left: 263.5px; width: 200px;"></div>
+</body></html>

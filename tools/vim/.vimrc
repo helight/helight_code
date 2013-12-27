@@ -43,10 +43,6 @@ set nobackup
 setlocal noswapfile 
 set bufhidden=hide 
 
-" 在状态行上显示光标所在位置的行号和列号 
-set ruler 
-set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%) 
-set listchars=tab:>-,trail:-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 搜索和匹配 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
@@ -55,11 +51,11 @@ set showmatch
 " support gnu syntaxt
 let c_gnu = 1
 "
-" " show error for mixed tab-space
+" show error for mixed tab-space
 let c_space_errors = 1
-" "let c_no_tab_space_error = 1
+" let c_no_tab_space_error = 1
 "
-" " don't show gcc statement expression ({x, y;}) as error
+" don't show gcc statement expression ({x, y;}) as error
 let c_no_curly_error = 1
 """"""""""""""""""""""""""""""
 " => Statusline
@@ -83,6 +79,10 @@ endif
 set statusline+=%= " right align
 set statusline+=%2*0x%-8B\ " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
+
+" 在状态行上显示光标所在位置的行号和列号 
+set ruler 
+set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%) 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" 
 " 文本格式和排版 
@@ -109,8 +109,6 @@ set shiftwidth=4
 
 " input settings
 set backspace=2
-set tabstop=4
-set shiftwidth=4
 set smarttab
 " set softtabstop=4
 set expandtab " expand tab to spaces
@@ -125,10 +123,38 @@ set smartcase
 set foldenable 
 set foldmethod=manual 
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR> 
-""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key mappings section
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" alt .h .cpp
+map <F1> :A<CR>
+
+" for Tlist
+nnoremap <silent> <F2> :TlistToggle<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
-""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" auto insert header
+function SetAuthorComment()
+    call setline(1, "\/\/ Copyright (c) ".strftime("%Y").", HelightXu")
+    call setline(2, "\/\/ Author: Zhwen Xu<HelightXu@gmail.com>")
+    call setline(3, "\/\/ Created: ".strftime("%Y-%m-%d"))
+    call setline(4, "\/\/ Description:")
+    call setline(5, "\/\/")
+endfunction 
 " auto insert gtest header inclusion for test source file
-autocmd BufNewFile *.{cpp,cxx,cc} nested :normal i#include"thirdparty/gtest/gtest.h"
+autocmd BufNewFile *_test.{cpp,cxx,cc} nested :normal i#include "gtest/gtest.h"
+autocmd BufNewFile *.{cpp,cxx,cc} nested call SetAuthorComment()
+
+" remove trailing spaces
+function! RemoveTrailingSpace()
+    if $VIM_HATE_SPACE_ERRORS != '0'
+        normal m`
+        silent! :%s/\s\+$//e
+        normal ``
+    endif
+endfunction 
+autocmd BufWritePre * nested call RemoveTrailingSpace()
+" last open line
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
             \ exe "normal! g`\"" | endif

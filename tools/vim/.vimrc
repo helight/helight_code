@@ -144,7 +144,7 @@ function SetAuthorComment()
 endfunction
 " auto insert gtest header inclusion for test source file
 autocmd BufNewFile *_test.{cpp,cxx,cc} nested :normal i#include "gtest/gtest.h"
-autocmd BufNewFile *.{cpp,cxx,cc} nested call SetAuthorComment()
+autocmd BufNewFile *.{c,cpp,cxx,cc,h,hpp,py,sh} nested call SetAuthorComment()
 
 " locate project dir by README.md file
 functio! FindProjectRootDir()

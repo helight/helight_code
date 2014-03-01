@@ -144,20 +144,20 @@ function SetAuthorComment()
 endfunction
 " auto insert gtest header inclusion for test source file
 autocmd BufNewFile *_test.{cpp,cxx,cc} nested :normal i#include "gtest/gtest.h"
-autocmd BufNewFile *.{c,cpp,cxx,cc,h,hpp,py,sh} nested call SetAuthorComment()
-
-" locate project dir by README.md file
-functio! FindProjectRootDir()
-    let rootfile = findfile("README.md", ".;")
-    " in project root dir
-    if rootfile == "README.md"
-        return ""
-    endif
-    return substitute(rootfile, "/README.md$", "", "")
+autocmd BufNewFile *.{c,cpp,cxx,cc} nested call SetAuthorComment()
+" auto insert header
+function SetAuthorCommentForScript()
+    call setline(1, "# Copyright (c) ".strftime("%Y").", HelightXu")
+    call setline(2, "# Author: Zhwen Xu<HelightXu@gmail.com>")
+    call setline(3, "# Created: ".strftime("%Y-%m-%d"))
+    call setline(4, "# Description:")
+    call setline(5, "#")
 endfunction
+autocmd BufNewFile *.{py,sh} nested call SetAuthorCommentForScript()
 
 " auto insert gtest header inclusion for test source file
 function! s:InsertHeaderGuard()
+   " call SetAuthorComment()
     let fullname = expand("%:p")
     let rootdir = FindProjectRootDir()
     if rootdir != ""
@@ -172,6 +172,17 @@ function! s:InsertHeaderGuard()
     exec '$norm o#endif // ' . varname
 endfunction
 autocmd BufNewFile *.{h,hh.hxx,hpp} nested call <SID>InsertHeaderGuard()
+
+
+" locate project dir by README.md file
+functio! FindProjectRootDir()
+    let rootfile = findfile("README.md", ".;")
+    " in project root dir
+    if rootfile == "README.md"
+        return ""
+    endif
+    return substitute(rootfile, "/README.md$", "", "")
+endfunction
 
 " remove trailing spaces
 function! RemoveTrailingSpace()

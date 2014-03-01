@@ -185,3 +185,8 @@ autocmd BufWritePre * nested call RemoveTrailingSpace()
 " last open line
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") |
             \ exe "normal! g`\"" | endif
+
+" MiniBufExplorer
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplMapWindowNavVim = 1

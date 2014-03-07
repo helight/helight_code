@@ -144,7 +144,7 @@ function SetAuthorComment()
 endfunction
 " auto insert gtest header inclusion for test source file
 autocmd BufNewFile *_test.{cpp,cxx,cc} nested :normal i#include "gtest/gtest.h"
-autocmd BufNewFile *.{c,cpp,cxx,cc} nested call SetAuthorComment()
+autocmd BufNewFile *.{c,cpp,cxx,cc,c} nested call SetAuthorComment()
 " auto insert header
 function SetAuthorCommentForScript()
     call setline(1, "# Copyright (c) ".strftime("%Y").", HelightXu")

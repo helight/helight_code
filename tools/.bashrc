@@ -108,3 +108,22 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
+export JRE_HOME=$JAVA_HOME/jre
+export HADOOP_HOME=/data/hadoop/hadoop/
+export FINDBUGS_HOME=/data/opencode/findbugs-2.0.3/
+export ZOOKEEPER_HOME=/data/zookeeper/zookeeper/
+export STORM_HOME=/data/storm/storm/
+
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$ZOOKEEPER_HOME/bin:$STORM_HOME/bin
+export JAVA_LIBRARY_PATH=$JAVA_LIBRARY_PATH:$HADOOP_HOME/lib/native/
+
+jar_list=`find $HADOOP_HOME/ -name *.jar`
+for jar_item in $jar_list
+do
+    CLASSPATH=$CLASSPATH:$jar_item
+done
+export CLASSPATH

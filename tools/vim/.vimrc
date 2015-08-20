@@ -17,7 +17,7 @@ set confirm
 filetype on
 
 " 载入文件类型插件
-filetype plugin on
+filetype plugin indent on
 
 " 语法高亮
 syntax on

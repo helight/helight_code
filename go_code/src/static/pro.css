@@ -1,0 +1,22 @@
+#vt100 #cursor.bright {
+  background-color: #cccccc;
+  color:            #202020;
+}
+
+#vt100 #scrollable {
+  color:            #cccccc;
+  background-color: #202020;
+}
+
+#vt100 #scrollable.inverted {
+  color:            #202020;
+  background-color: #cccccc;
+}
+
+#vt100 .ansi15 {
+  color:            #202020;
+}
+
+#vt100 .bgAnsi0 {
+  background-color: #cccccc;
+}

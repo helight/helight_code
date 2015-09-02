@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xml:lang="en" lang="en">
+  <head>
+    <title>Shell In A Box</title>
+
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <style type="text/css">
+      body {
+        margin: 0px;
+      }
+    </style>
+    <script type="text/javascript"><!--
+      (function() {
+        if (typeof navigator.appName == 'undefined' ||
+            navigator.appName != 'Netscape') {
+          document.write('<style type="text/css">' +
+                         '#vt100 #console div, #vt100 #alt_console div {' +
+                         '  overflow: hidden;' +
+                         '}' +
+                         '</style>');
+        }
+      })();
+    --></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="vt100.js"></script>
+    <script type="text/javascript" src="shell_in_a_box.js"></script>
+  </head>
+  <body onload="setTimeout('window.s = new ShellInABox(\'{{ip}}\')', 100)"
+        scroll="no"><noscript>JavaScript
+    must be enabled for ShellInABox</noscript></body>
+</html>

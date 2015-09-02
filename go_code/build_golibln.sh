@@ -42,9 +42,6 @@ function install_all()
 {
     echo "Begin to install......"
 
-    build_lib_path factory/web_proxy/
-    build_lib_path factory/flow/
-
     echo "install ok"
 }
 

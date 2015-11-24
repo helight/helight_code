@@ -1,0 +1,5 @@
+env = Environment(CCFLAGS = '-O2')
+Export("env")
+SConscript('boost_test/SConstruct')
+SConscript('serialize/SConstruct')
+SConscript('stl_test/SConstruct')

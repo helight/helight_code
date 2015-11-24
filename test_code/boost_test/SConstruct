@@ -1,0 +1,47 @@
+
+VariantDir(".obj/", "./", duplicate=0);
+env = Environment()  # Initialize the environment
+test = Environment()  # Initialize the environment
+env.Append(CCFLAGS = ['-g','-O3'])
+env.Append(LIBS = ['boost_system','boost_filesystem', 'boost_thread'])
+env.Append(CPPDEFINES={'RELEASE_BUILD' : '1'})
+env.Append(LIBPATH = ['/usr/local/lib/'])
+env.Append(CPPDEFINES=['BIG_ENDIAN'])
+env.Append(CPPPATH = ['/usr/local/include/'])
+#env.ParseConfig( 'pkg-config --cflags glib-2.0' )
+
+SConscript(['test/SConstruct', 'serialize_boost/SConstruct'])
+
+env.Program(
+    target = 'test2',
+    source = [".obj/test2.cc"]
+    )
+
+env.Program(
+    target = 'test3',
+    source = [".obj/test3.cc"]
+    )
+
+env.Program(
+    target = 'test4',
+    source = [".obj/test4.cc"]
+    )
+
+env.Program(
+    target = 'test5',
+    source = [".obj/test5.cc"]
+    )
+
+test.Program(
+    target = 'bind_test1',
+    source = [".obj/bind_test1.cc"],
+    LIBS = ['boost_system','boost_filesystem', 'boost_thread'],
+    LIBPATH = ['./'],
+    CPPPATH = ['./'],
+    CCGLAGS = ['-g','-O3']
+    )
+env.Program(
+    target = 'regex_test',
+    source = ['regex_test.cc'],
+    LIBS = ['boost_system','boost_filesystem', 'boost_thread', 'boost_regex'],
+    )

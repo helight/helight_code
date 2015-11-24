@@ -1,0 +1,5 @@
+ngx_addon_name=ngx_xlog_redis
+HTTP_AUX_FILTER_MODULES="$HTTP_AUX_FILTER_MODULES ngx_xlog_redis"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_xlog_redis.c $ngx_addon_dir/credis.c"
+
+

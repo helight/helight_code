@@ -1,0 +1,11 @@
+Library(
+	'jsonrpc',
+	[
+		'json_value.cc',
+		'json_reader.cc',
+		'json_writer.cc',
+		'jsonrpc_handler.cc',
+		'jsonrpc.cc',
+	], 
+	LIBS=['pthread']
+)

@@ -1,0 +1,13 @@
+env = Environment()
+env.Append(CCFLAGS = ['-g'])
+env.Append(LIBS = ['recordio', 'z'])
+env.Append(CPPDEFINES={'RELEASE_BUILD' : '1'})
+env.Append(LIBPATH = ['../../common/file/'])
+env.Append(CPPDEFINES=['BIG_ENDIAN'])
+env.Append(CPPPATH = ['../../'])
+
+env.Program(
+    target = 'test',
+    source = ["test.cc"],
+    )
+

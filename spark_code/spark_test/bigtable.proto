@@ -1,0 +1,10 @@
+option optimize_for = LITE_RUNTIME;
+
+package idata.factory.application.game_stat;
+option java_package = "org.zhwen.sparkproject";
+
+message BigtableData
+{
+	required string primary_key = 1; // qq or commid
+	repeated int32 level_values = 2; // 特性字段
+}

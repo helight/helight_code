@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Status page</title>
+    </head>
+    <body>
+      Process Name: {{PROCESS_NAME}}<br/>
+      Process Start Time: {{START_TIME}}<br/>
+      Process Elapsed Time: {{ELAPSED_TIME}} seconds<br/>
+      Linux Version: {{LinuxVersion}} <br/>
+
+      {{#CPU_SUCCESS}}
+      Process CPU: {{CPU_USAGE_PERCENT}}%<br/>
+      {{/CPU_SUCCESS}}
+      {{#CPU_ERROR}}
+      Process CPU: not available.<br/>
+      {{/CPU_ERROR}}
+
+      {{#MEMORY_SUCCESS}}
+      Process Virtual Memory: {{VM_SIZE}}.<br/>
+      Process Pysical Memory: {{PM_SIZE}}.<br/>
+      {{/MEMORY_SUCCESS}}
+      {{#MEMORY_ERROR}}
+      Process memory usage info not available currently.<br/>
+      {{/MEMORY_ERROR}}
+
+      <br/>
+      <h3>GLOBAL<h3>
+      <table border=2>
+        <tr>
+          <td><b>Stats variable name</b></td>
+          <td><b>Count in last second</b></td>
+          <td><b>Count in last minute</b></td>
+          <td><b>Count in last hour</b></td>
+          <td><b>Total count</b></td>
+        </tr>
+        {{#GLOBAL_REQUEST_COUNT_ROW}}
+        <tr>
+          <td>{{STATS_VARIABLE_NAME}}</td>
+          <td>{{LAST_SECOND_COUNT}} times</td>
+          <td>{{LAST_MINUTE_COUNT}} times</td>
+          <td>{{LAST_HOUR_COUNT}} times</td>
+          <td>{{TOTAL_COUNT}} times</td>
+        </tr>
+        {{/GLOBAL_REQUEST_COUNT_ROW}}
+      </table>
+      <p></p>
+    </body>
+  </html>
+

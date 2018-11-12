@@ -1,0 +1,24 @@
+env = Environment()  # Initialize the environment                                                   
+env.Append(CCFLAGS = ['-g','-DHAVE_NETINET_IN_H', '-DHAVE_INTTYPES_H'])                             
+env.Append(LIBS = ['boost_system','boost_filesystem', 'boost_thread', 'ctemplate',
+           'gflags', 'static_resource', 'rpc_server_status', 'thrift', 'pthread', 'rt'])
+env.Append(CPPPATH = ['../../thirtyparty/thrift/include/']) 
+env.Append(LINKFLAGS = ['-static', '-fPIC', '-DHAVE_NETINET_IN_H'])
+
+SConscript(['rpc/SConstruct','static/SConstruct'])
+
+env.Program(
+    target = 'thrift_httpd_test', 
+    source = ["server_status_handler.cpp",
+            'thrift_httpd.cpp'],
+    LIBPATH = ['../../thirtyparty/thrift/lib/',
+                '../../thirtyparty/ctemplate/lib/',
+                '../../thirtyparty/gflags/lib/',
+                '../../thirtyparty/glog/lib/',
+                './static/',
+                './rpc/'],
+    CPPPATH = ['../../thirtyparty/thrift/include/',
+                '../../thirtyparty/ctemplate/include/',
+                '../../thirtyparty/gflags/include/',
+                '../../thirtyparty/glog/include/'],
+    )

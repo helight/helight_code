@@ -1,0 +1,28 @@
+package org.zhwen.netty.hello;
+
+enum ReqestType {
+    LOGIN = 0;
+    SERVICE = 1;
+}
+
+message Request {
+  required ReqestType type = 1;
+  optional Login login = 100;
+  optional Service service = 101;
+}
+
+message Login {
+  required string user = 1;
+  required string pswd = 2;
+}
+
+message Service {
+  optional string content = 1;
+}
+
+message Response {
+  required ReqestType type = 1;
+  required int64 seqid = 2;
+  required int32 ret = 3;
+  optional string result = 4;
+}

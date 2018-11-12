@@ -1,0 +1,27 @@
+env = Environment()  # Initialize the environment
+
+#include <google/profiler.h>
+thirdparty = "../../thirdparty/"
+env.Append(LIBPATH = [thirdparty + '/gperftools/lib/', thirdparty + '/libunwind/lib/'])
+env.Append(CPPPATH = [thirdparty + '/gperftools/include/', thirdparty + '/libunwind/include/'])
+
+env.Append(LIBS = ['profiler', 'unwind', 'lzma'])
+
+env.Append(CCFLAGS = ['-fno-omit-frame-pointer'])
+env.Append(LINKFLAGS = ['-static'])
+
+Object("deque_test.cc")
+
+#Library("test", "deque_test.o")
+#SharedLibrary("test", "deque_test.cc")
+
+env.Program(
+    target = 'deque_test',
+    source = ["deque_test.o", "main.cc"],
+    )
+
+env.Program(
+    target = "bound_test",
+    source = "bound_test.cc",
+    )
+

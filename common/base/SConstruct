@@ -1,0 +1,31 @@
+env = Environment()
+env.Append(CCFLAGS = ['-g'])
+env.Append(LINKFLAGS = ['-static'])
+env.Append(LIBS = ['gtest', 'glog', 'z','pthread'])
+thirdparty = "../../thirdparty/"
+env.Append(CPPPATH = [thirdparty + 'gtest/include/',
+                      thirdparty + 'glog/include/',
+           ])
+env.Append(LIBPATH= [thirdparty + '/gtest/lib/',
+                     thirdparty + '/glog/lib/',
+           ])
+
+#env.Program(
+#    target = "base_test",
+#    source = ["../main_test.cc",
+#            "str_tools_test.cc", "str_tools.cc",
+#            "util_test.cc", "util.cc",
+#            ]
+#)
+
+env.Library(
+    target = "base",
+    source = [
+        "log.cc",
+        "parse_conf.cc",
+        "str_tools.cc",
+        "system_info.cc",
+        'util.cc',
+        'time_utils.cc',
+        ]
+)

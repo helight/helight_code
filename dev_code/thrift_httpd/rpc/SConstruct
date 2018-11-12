@@ -1,0 +1,14 @@
+import os 
+
+env = Environment()  # Initialize the environment
+env.Append(CCFLAGS = ['-g','-DHAVE_NETINET_IN_H', '-DHAVE_INTTYPES_H'])
+env.Append(LIBS = ['boost_system','boost_filesystem', 'boost_thread'])
+env.Append(CPPPATH = ['../../../thirtyparty/thrift/include/'])
+
+os.system("../../../thirtyparty/thrift/bin/thrift --gen cpp -out ./ server_status.thrift")
+os.system("../../../thirtyparty/thrift/bin/thrift --gen js -out ../static/ server_status.thrift")
+
+env.StaticLibrary(
+    target = "rpc_server_status",
+    source = Glob('*.cpp')
+    )

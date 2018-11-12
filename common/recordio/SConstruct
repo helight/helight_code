@@ -1,0 +1,26 @@
+env = Environment()
+env.Append(CCFLAGS = ['-g'])
+env.Append(LINKFLAGS = ['-static'])
+env.Append(LIBS = ['gtest', 'glog', 'z','pthread'])
+thirdparty = "../../thirdparty/"
+env.Append(CPPPATH = [thirdparty + 'gtest/include/',
+                      thirdparty + 'glog/include/',
+           ])
+env.Append(LIBPATH= [thirdparty + '/gtest/lib/',
+                     thirdparty + '/glog/lib/',
+           ])
+
+env.Program(
+    target = "recordio_test",
+    source = [
+            "recordio_test.cc", "recordio.cc", "file.cc",
+            ],
+)
+
+env.Library(
+    target = "recordio",
+    source = [
+        "recordio.cc",
+        "file.cc",
+        ],
+)

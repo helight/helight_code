@@ -1,0 +1,13 @@
+env = Environment()  # Initialize the environment
+test = Environment()  # Initialize the environment
+env.Append(CCFLAGS = ['-g','-O3'])
+env.Append(LIBS = ['boost_system','boost_filesystem', 'boost_thread'])
+env.Append(CPPDEFINES={'RELEASE_BUILD' : '1'})
+env.Append(LIBPATH = ['/usr/local/lib/'])
+env.Append(CPPDEFINES=['BIG_ENDIAN'])
+env.Append(CPPPATH = ['/usr/local/include/'])
+
+env.Program(
+    target = 'test1', 
+    source = ["test1.cc"]
+    )

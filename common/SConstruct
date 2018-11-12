@@ -1,0 +1,5 @@
+env = Environment(CCFLAGS = '-O2')
+Export("env")
+SConscript('thread/SConstruct')
+SConscript('recordio/SConstruct')
+SConscript('base/SConstruct')

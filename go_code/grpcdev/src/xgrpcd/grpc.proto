@@ -1,0 +1,14 @@
+syntax = "proto3";
+package xgrpcd;
+
+message UserRq {
+	int32 id = 1;
+}
+
+message UserRp {
+	string name = 1;
+}
+
+service Data {
+	rpc GetUser(UserRq) returns(UserRp);
+}

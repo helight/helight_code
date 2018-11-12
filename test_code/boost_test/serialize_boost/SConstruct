@@ -1,8 +1,0 @@
-env = Environment() 
-env.Append(LIBS = ['boost_system', 'boost_serialization'])
-env.Append(CCFLAGS = ['-g'])
-
-env.Program(
-    target = "se_test",
-    source = ["main.cc"]
-)

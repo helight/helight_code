@@ -1,0 +1,2 @@
+go get -u github.com/golang/crypto
+go clone https://github.com/xtaci/kcp-go

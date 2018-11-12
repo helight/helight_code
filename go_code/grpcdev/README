@@ -1,0 +1,4 @@
+go get -u github.com/golang/protobuf/protoc-gen-go
+go get -u github.com/grpc/grpc-go
+go get -u github.com/golang/net/context
+go get -u github.com/golang/text

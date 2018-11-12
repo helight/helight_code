@@ -1,5 +1,0 @@
-swig -c++ -java -package org.zhwen.cityhash city.i
-
-
-city_wrap.cxx :
-return jresult; ==>   return result;

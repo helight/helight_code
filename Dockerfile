@@ -22,8 +22,9 @@ RUN \
         apt-get install -y golang-1.10 golang && \
         apt-get install -y nginx && \
         apt-get install -y sqlite3 && \
-        apt-get install -y vim lua5.1 lua5.1-dev
-RUN apt-get install -y g++ make autoconf 
+        apt-get install -y g++ make autoconf && \
+        apt-get install -y openssh-server && \
+        apt-get install -y php7.2  php7.2-common php7.2-json php7.2-readline php7.2-cli php-common
 #对外暴露端口
 EXPOSE 80 8080 3306
 

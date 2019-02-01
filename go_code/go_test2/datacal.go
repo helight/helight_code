@@ -1,4 +1,4 @@
-// show_data.go
+// datacal.go
 package main
 
 import (
@@ -6,28 +6,20 @@ import (
 	"math"
 )
 
-func show_data1() {
+func show_data() {
 	fmt.Println("test")
 }
 
-func add_num1(a int, b int) int {
+func add_num(a int, b int) int {
 	return a + b
-}
-
-func fib1() func() int {
-	a, b := 0, 1
-	return func() int {
-		a, b = b, a+b
-		return a
-	}
 }
 
 // pi launches n goroutines to compute an
 // approximation of pi.
-func pi1(n int) float64 {
+func pi(n int) float64 {
 	ch := make(chan float64)
 	for k := 0; k <= n; k++ {
-		go term1(ch, float64(k))
+		go term(ch, float64(k))
 	}
 	f := 0.0
 	for k := 0; k <= n; k++ {
@@ -36,10 +28,18 @@ func pi1(n int) float64 {
 	return f
 }
 
-func term1(ch chan float64, k float64) {
+func term(ch chan float64, k float64) {
 	ch <- 4 * math.Pow(-1, k) / (2*k + 1)
 }
 
-/*func main() {
+func fib() func() int {
+	a, b := 0, 1
+	return func() int {
+		a, b = b, a+b
+		return a
+	}
+}
+
+func main() {
 	fmt.Println("Hello World!")
-}*/
+}

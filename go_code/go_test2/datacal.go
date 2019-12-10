@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 )
 
 func show_data() {
@@ -38,6 +39,17 @@ func fib() func() int {
 		a, b = b, a+b
 		return a
 	}
+}
+
+func Interfaces() ([]string, error) {
+	return nil, nil
+}
+
+func split(s string) []string {
+	/* if s == "" {
+		return nil
+	} */
+	return strings.Split(s, ",")
 }
 
 func main() {

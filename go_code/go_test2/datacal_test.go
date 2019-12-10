@@ -2,7 +2,10 @@
 
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func Test_add_num(t *testing.T) {
 	type args struct {
@@ -29,6 +32,18 @@ func Test_add_num(t *testing.T) {
 	}
 }
 
+func Test_Interfaces(t *testing.T) {
+	addrs, _ := Interfaces()
+	for _, addr := range addrs {
+		fmt.Println("test: " + addr)
+	}
+}
+
+func Test_split(t *testing.T) {
+	var tt = ""
+	te := split(tt)
+	fmt.Println("te: ", te)
+}
 func Benchmark_add_num(b *testing.B) {
 	sum := 0
 	for i := 0; i < b.N; i++ {
